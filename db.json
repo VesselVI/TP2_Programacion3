@@ -1,10 +1,29 @@
 {
     "tasks": [
         {
-            "id": 4,
             "note": "Estudiar JS",
             "status": "Pendiente",
-            "exp_Date": "01/04/2025"
+            "exp_Date": "01/04/2025",
+            "id": "sKD06c60LQQ"
+        },
+        {
+            "note": "Sacar la basura",
+            "status": "Pendiente",
+            "exp_Date": "2026-05-06",
+            "id": "o9PW8QIsG8Y"
+        },
+        {
+            "note": "Terminar el TP2 de Politti",
+            "status": "Pendiente",
+            "exp_Date": "2026-04-27",
+            "id": "FYZA4G0003A"
+        },
+        {
+            "note": "Agregar un boton de borrar tarea",
+            "status": "Pendiente",
+            "exp_Date": "2026-05-22",
+            "id": "mXXYf_leb6U"
         }
-    ]
+    ],
+    "$schema": "./node_modules/json-server/schema.json"
 }

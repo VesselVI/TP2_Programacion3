@@ -11,10 +11,10 @@ async function getUsers() {
 
         let row = "";
 
-        tasks.forEach((task) => {
+        tasks.forEach((task, index) => {
             row += `
         <tr>
-            <th scope="row">${task.id}</th>
+            <th scope="row">${index + 1}</th>
             <td>${task.note}</td>
             <td>
                 <div class="dropdown">
@@ -71,5 +71,37 @@ if (dataTable) {
         updateStatusButton(button, selectedText);
     });
 }
+
+
+const addBtn = document.querySelector("#addBtn");
+const inputNote = document.querySelector("#inputNote");
+const inputDate = document.querySelector("#datePicker");
+
+addBtn.addEventListener("click", async (event) => {
+    event.preventDefault();
+
+    const inputValue = inputNote.value.trim();
+    if (!inputValue) return;
+
+    const dateValue = inputDate.value;
+    if (!dateValue) return;
+    const newTask = {
+        note: inputValue,
+        status: "Pendiente",
+        exp_Date: dateValue
+    };
+
+    try {
+        const response = await axios.post("http://localhost:3000/tasks", newTask);
+        console.log(response.data);
+    }
+
+
+    catch (error) {
+        console.log(error);
+
+    }
+});
+
 
 getUsers();
