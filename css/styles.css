@@ -1,0 +1,49 @@
+/* .inputContainer {}
+
+body {
+    background-color: gainsboro;
+}
+
+.dateDiv {
+
+    align-items: flex-end;
+}
+
+.inputContainer .noteDiv #inputNote {
+    width: 100%;
+} */
+
+.inputContainer .listIcon {
+    margin-bottom: 10px;
+
+}
+
+.dateDiv {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    margin-bottom: 4px;
+}
+
+.inputContainer {
+    background-color: rgb(221, 202, 155);
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: 3px 4px 9px;
+}
+
+.listContainer {
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: 3px 4px 9px;
+
+}
+
+body {
+    background-color: rgb(207, 206, 213);
+}
+
+.mainTitle {
+    text-align: center;
+}

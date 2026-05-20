@@ -2,8 +2,8 @@
     "tasks": [
         {
             "id": 1,
-            "title": "Estudiar JS",
-            "completed": false
+            "note": "Estudiar JS",
+            "status": "Pendiente"
         }
     ]
 }
