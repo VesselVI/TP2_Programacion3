@@ -47,3 +47,14 @@ body {
 .mainTitle {
     text-align: center;
 }
+
+.bxs-trash {
+    margin-top: 8px;
+    transition: transform 0.1s ease-in-out;
+    /* Smooth transition */
+
+}
+
+.bxs-trash:hover {
+    transform: scale(1.2);
+}

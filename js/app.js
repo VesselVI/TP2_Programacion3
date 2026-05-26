@@ -1,12 +1,11 @@
 const dataTable = document.querySelector(".listData")
-
+let allTasks = [];
 
 async function getUsers() {
     try {
         const response = await axios.get("http://localhost:3000/tasks");
 
-
-
+        allTasks = response.data; // Save tasks globally
         const tasks = response.data;
 
         let row = "";
@@ -31,6 +30,8 @@ async function getUsers() {
                 </div>
             </td>
             <td>${task.exp_Date}</td>
+            <td> <button type="button" class="btn btn-light" id="editBtn">Editar</button></td>
+            <td><i class='bx bxs-trash bx-sm' id="deleteBtn"></i></td>
         </tr>
         `
         })
@@ -43,6 +44,8 @@ async function getUsers() {
 
 
 }
+
+
 
 
 function updateStatusButton(button, selectedText) {
@@ -73,6 +76,22 @@ if (dataTable) {
 }
 
 
+dataTable.addEventListener("click", async (event) => {
+    if (event.target.id === "deleteBtn") {
+        const row = event.target.closest("tr");
+        const rowIndex = Array.from(dataTable.querySelectorAll("tr")).indexOf(row);
+        const taskId = allTasks[rowIndex].id;
+
+        try {
+            await axios.delete(`http://localhost:3000/tasks/${taskId}`);
+            row.remove();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+});
+
+
 const addBtn = document.querySelector("#addBtn");
 const inputNote = document.querySelector("#inputNote");
 const inputDate = document.querySelector("#datePicker");
@@ -90,16 +109,80 @@ addBtn.addEventListener("click", async (event) => {
         status: "Pendiente",
         exp_Date: dateValue
     };
-
     try {
         const response = await axios.post("http://localhost:3000/tasks", newTask);
         console.log(response.data);
     }
-
-
     catch (error) {
         console.log(error);
+    }
+});
 
+const editInput = document.querySelector("#editInput");
+const saveEditBtn = document.querySelector("#saveEditBtn");
+const editDate = document.querySelector("#editDate");
+
+let currentTaskId = null;
+let currentRow = null;
+let currentRowIndex = null;
+
+dataTable.addEventListener("click", (event) => {
+
+    if (event.target.id === "editBtn") {
+
+
+        const row = event.target.closest("tr");
+        const rowIndex = Array.from(dataTable.querySelectorAll("tr")).indexOf(row);
+
+        const task = allTasks[rowIndex];
+
+
+        currentTaskId = task.id;
+        currentRow = row;
+        currentRowIndex = rowIndex;
+
+
+        editInput.value = task.note;
+        editDate.value = task.exp_Date;
+
+        $("#editModal").modal("show");
+    }
+});
+
+saveEditBtn.addEventListener("click", async () => {
+
+    const newNote = editInput.value.trim();
+    const newDate = editDate.value;
+
+
+    if (!newNote || !newDate) return;
+
+    const task = allTasks[currentRowIndex];
+
+    const updatedTask = {
+        ...task,
+        note: newNote,
+        exp_Date: newDate
+    };
+
+    try {
+
+        await axios.put(
+            `http://localhost:3000/tasks/${currentTaskId}`,
+            updatedTask
+        );
+
+        currentRow.children[1].textContent = newNote;
+        currentRow.children[3].textContent = newDate;
+
+
+
+        allTasks[currentRowIndex].note = newNote;
+
+        $("#editModal").modal("hide");
+
+    } catch (error) {
+        console.log(error);
     }
 });
 
