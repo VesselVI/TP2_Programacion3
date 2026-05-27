@@ -5,7 +5,7 @@ async function getUsers() {
     try {
         const response = await axios.get("http://localhost:3000/tasks");
 
-        allTasks = response.data; // Save tasks globally
+        allTasks = response.data;
         const tasks = response.data;
 
         let row = "";
